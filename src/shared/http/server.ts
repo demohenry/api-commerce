@@ -1,8 +1,9 @@
-import 'reflect-metadata';
-import express, { NextFunction, Request, response, Response } from 'express';
+import 'reflect-metadata'; // reflect-metadata deve parmanecer pelo primeiro
+import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
+import '@shared/typeorm';
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     })
   }
 
-  return response.status(500).json({
+  return res.status(500).json({
     status: 'error',
     message: 'Internal server error',
   })
