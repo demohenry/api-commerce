@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use(routes);
 
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((error: Error, req: Request, res: Response, _next: NextFunction) => {
   if (error instanceof AppError){
     return res.status(error.statusCode).json({
       status: 'error',
@@ -22,7 +22,7 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
 
   return res.status(500).json({
     status: 'error',
-    message: 'Internal server error',
+    message: `Internal Server error ${error.message}`,
   })
 });
 
