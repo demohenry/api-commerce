@@ -27,5 +27,5 @@ app.use((error: Error, req: Request, res: Response, _next: NextFunction) => {
 });
 
 app.listen(3333, () => {
-  console.log('API Started');
+  console.log('API Started 🔛');
 });
