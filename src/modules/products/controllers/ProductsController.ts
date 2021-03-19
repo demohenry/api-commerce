@@ -7,9 +7,9 @@ import UpdateProductService from '../services/UpdateProductService';
 
 export default class ProductsController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const ListProducts = new ListProductService();
+    const listProducts = new ListProductService();
 
-    const products = await ListProducts.execute();
+    const products = await listProducts.execute();
 
     return res.json(products);
   }
