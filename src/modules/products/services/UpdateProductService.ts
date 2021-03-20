@@ -24,7 +24,7 @@ class UpdateProductService {
     if (!product) {
       throw new AppError('Product not found');
     }
-    //verificação se existe produco com mesmo nome
+    //verificação se existe produco com mesmo nome (ATENÇÃO: não atualiza o mesmo nome)
     const productExists = await productsRepository.findByName(name);
 
     if (productExists) {
