@@ -17,19 +17,19 @@ app.use(routes);
 app.use(errors());
 
 app.use((error: Error, req: Request, res: Response, _next: NextFunction) => {
-  if (error instanceof AppError) {
-    return res.status(error.statusCode).json({
-      status: 'error',
-      message: error.message,
-    });
-  }
+	if (error instanceof AppError) {
+		return res.status(error.statusCode).json({
+			status: 'error',
+			message: error.message,
+		});
+	}
 
-  return res.status(500).json({
-    status: 'error',
-    message: `Internal Server error ${error.message}`,
-  });
+	return res.status(500).json({
+		status: 'error',
+		message: `Internal Server error ${error.message}`,
+	});
 });
 
 app.listen(3333, () => {
-  console.log('API Started 🔛');
+	console.log('API Started 🔛');
 });

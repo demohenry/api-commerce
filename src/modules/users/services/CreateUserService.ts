@@ -5,32 +5,32 @@ import User from '../typeorm/entities/User';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 
 interface IRequest {
-  name: string;
-  email: string;
-  password: string;
+	name: string;
+	email: string;
+	password: string;
 }
 
 class CreateUserService {
-  public async execute({ name, email, password }: IRequest): Promise<User> {
-    const usersRepository = getCustomRepository(UsersRepository);
-    const emailExists = await usersRepository.findByEmail(email);
+	public async execute({ name, email, password }: IRequest): Promise<User> {
+		const usersRepository = getCustomRepository(UsersRepository);
+		const emailExists = await usersRepository.findByEmail(email);
 
-    if (emailExists) {
-      throw new AppError('Email adress alreary exists.');
-    }
+		if (emailExists) {
+			throw new AppError('Email adress alreary exists.');
+		}
 
-    const hashedPassword = await hash(password, 8);
+		const hashedPassword = await hash(password, 8);
 
-    const user = usersRepository.create({
-      name,
-      email,
-      password: hashedPassword,
-    });
+		const user = usersRepository.create({
+			name,
+			email,
+			password: hashedPassword,
+		});
 
-    await usersRepository.save(user);
+		await usersRepository.save(user);
 
-    return user;
-  }
+		return user;
+	}
 }
 
 export default CreateUserService;

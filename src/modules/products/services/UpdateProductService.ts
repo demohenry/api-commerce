@@ -4,41 +4,41 @@ import Product from '../typeorm/entities/Product';
 import ProductRepository from './../typeorm/repositories/ProductsRepository';
 
 interface IRequest {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
+	id: string;
+	name: string;
+	price: number;
+	quantity: number;
 }
 class UpdateProductService {
-  public async execute({
-    id,
-    name,
-    price,
-    quantity,
-  }: IRequest): Promise<Product> {
-    const productsRepository = getCustomRepository(ProductRepository);
+	public async execute({
+		id,
+		name,
+		price,
+		quantity,
+	}: IRequest): Promise<Product> {
+		const productsRepository = getCustomRepository(ProductRepository);
 
-    //verifica ser o produto (id) existe
-    const product = await productsRepository.findOne(id);
+		//verifica ser o produto (id) existe
+		const product = await productsRepository.findOne(id);
 
-    if (!product) {
-      throw new AppError('Product not found');
-    }
-    //verificação se existe produco com mesmo nome (ATENÇÃO: não atualiza o mesmo nome)
-    const productExists = await productsRepository.findByName(name);
+		if (!product) {
+			throw new AppError('Product not found');
+		}
+		//verificação se existe produco com mesmo nome (ATENÇÃO: não atualiza o mesmo nome)
+		const productExists = await productsRepository.findByName(name);
 
-    if (productExists) {
-      throw new AppError('There is already one product with this name');
-    }
+		if (productExists) {
+			throw new AppError('There is already one product with this name');
+		}
 
-    product.name = name;
-    product.price = price;
-    product.quantity = quantity;
+		product.name = name;
+		product.price = price;
+		product.quantity = quantity;
 
-    await productsRepository.save(product);
+		await productsRepository.save(product);
 
-    return product;
-  }
+		return product;
+	}
 }
 
 export default UpdateProductService;
